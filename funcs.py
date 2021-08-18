@@ -22,9 +22,11 @@ async def delete_empty(actives : list["ActiveChannels"], bot):
                 print(chan.voice_states)
                 if not chan.voice_states:
                     remove(bot, bot.get_guild(i.guild), chan)
-                    print("deleting")
-                    print(chan.name)
-                    await chan.delete()
+                    if chan != None:
+                        try:
+                            await chan.delete()
+                        except:
+                            print("Could not delete channel. Probably it was removed by user")
 
 def remove(self, guild : Guild, vc : VoiceChannel):
     copy_ac = self.active_channels.copy()
